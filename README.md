@@ -11,7 +11,7 @@ Both scripts are safe: they do **not restart automatically**, and log all action
 
 ## What I Did in These Scripts 
 
-Here’s exactly what I have been doing in these scripts in **plain human language**:
+Here’s exactly what I have been doing in these scripts:
 
 1. **Shebang** (`#!/bin/bash`)  
    - Tells macOS to run the script using the Bash shell.  
