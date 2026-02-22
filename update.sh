@@ -38,7 +38,6 @@ if [[ -z "$UPDATES" || "$UPDATES" == *"No new software available"* ]]; then
 else
     echo -e "${BLUE}Installing all available updates...${NC}" | tee -a "$LOGFILE"
     sudo softwareupdate -ia --verbose | tee -a "$LOGFILE"
-
     echo "macOS updates installed: $MAC_COUNT" >> "$SUMMARY"
 
     if softwareupdate -l | grep -qi "restart"; then
@@ -53,7 +52,7 @@ fi
 # Homebrew updates
 if command -v brew >/dev/null 2>&1; then
     BREW_COUNT=$(brew outdated | wc -l)
-
+    
     if [[ "$BREW_COUNT" -eq 0 ]]; then
         echo -e "${GREEN}No Homebrew packages need updating.${NC}" | tee -a "$LOGFILE"
         echo "Homebrew packages updated: 0" >> "$SUMMARY"
@@ -61,18 +60,16 @@ if command -v brew >/dev/null 2>&1; then
         echo -e "${BLUE}Updating Homebrew...${NC}" | tee -a "$LOGFILE"
         brew update | tee -a "$LOGFILE"
         brew upgrade | tee -a "$LOGFILE"
-
         echo "Homebrew packages updated: $BREW_COUNT" >> "$SUMMARY"
     fi
 else
     echo -e "${YELLOW}Homebrew not installed. Skipping...${NC}" | tee -a "$LOGFILE"
-    echo "Homebrew not installed." >> "$SUMMARY"
+    echo "Homebrew not installed." >> "$SUMMARY" 
 fi
 
 # Calculate duration
 END_TIME=$(date +%s)
 DURATION=$((END_TIME - START_TIME))
-
 echo "Total update duration: $DURATION seconds" >> "$SUMMARY"
 
 # Finish log
